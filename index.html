@@ -1,0 +1,55 @@
+<!DOCTYPE <!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Train Scheduler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/reset.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+
+</head>
+
+<body>
+    <header>
+        <h1>Train Scheduler</h1>
+        <h2>AAAAAALL ABOARD!</h2>
+    </header>
+
+    <div id="table1">
+        <table class='train-schedule'>
+            <tr>
+                <h3>Current Train Schedule</h3>
+                <th class="table-header">Train Name</th>
+                <th class="table-header">Destination</th>
+                <th class="table-header">Frequency(min)</th>
+                <th class="table-header">Next Arrival</th>
+                <th class="table-header">Minutes Away</th>
+            </tr>
+        </table>
+    </div>
+    <h3>Add Train</h3>
+    <div>
+        <form class="add-train-form">
+            
+            <p>Train Name</p>
+            <input class="input" id="name-input" type="text" name="trainname" placeholder="Enter Train Name"><br><br>
+            <p>Destination</p>
+            <input class="input" id="destination-input" type="text" destination="destination" placeholder="Enter Destination"><br><br>
+            <p>First Train Time (HH:mm - military time)</p>
+            <input class="input" id="time-input" type="time" traintime="traintime" placeholder="00:00"><br><br>
+            <p>Frequency(min)</p>
+            <input class="input" id="frequency-input" type="number" frequency="frequency" placeholder="Enter Frequency of Arrival"><br><br>
+            <br><br>
+            <input id="submit" type="submit" value="Submit">
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.23.0/moment.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+
+</html>
