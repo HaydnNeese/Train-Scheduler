@@ -13,13 +13,13 @@ firebase.initializeApp(config);
 var database = firebase.database();
 
 //make some empty variables to store the retrieved user input 
-var trainName = '';
-var destination = '';
-var trainFirstTime = '00:00';
-var frequency = 0;
+var nameInput = '';
+var desinationInput = '';
+var firstTimeInput = '00:00';
+var frequencyInput = 0;
 
 //make a click handler to add user input to firebase
-$('#submit').on('click', function () {
+$(document).on('click', '#submit', function () {
     event.preventDefault();
     //retrieve values from input fields
     nameInput = $('#name-input').val().trim();
@@ -39,8 +39,38 @@ $('#submit').on('click', function () {
     $('#destination-input').val('');
     $('#time-input').val('');
     $('#frequency-input').val('');
+});
 
-
+database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
+    console.log(snapshot);
+    //time calculations
+    var tFrequency = snapshot.val().frequency;
+    var firstTime = snapshot.val().trainFirstTime;
+    var firstTimeConverted = moment(firstTime, "HH:mm").subtract(1, "years");
+    var currentTime = moment();
+    var diffTime = currentTime.diff(moment(firstTimeConverted), "minutes");
+    var tRemainder = diffTime % tFrequency;
+    console.log(tRemainder);
+    var tMinutesTillTrain = tFrequency - tRemainder;
+    var nextTrain = currentTime.add(tMinutesTillTrain, "minutes");
+    var minutesTil = nextTrain.diff(currentTime);
+    console.log(minutesTil);
+    console.log(tMinutesTillTrain);
+    //create empty row with 5 cells
+    var row = $('<tr>');
+    var nameCell = $('<td>');
+    var destCell = $('<td>');
+    var freqCell = $('<td>');
+    var nextCell = $('<td>');
+    var timeCell = $('<td>');
+    // assign text to the cells
+    nameCell.text(snapshot.val().name);
+    destCell.text(snapshot.val().destination);
+    freqCell.text(snapshot.val().frequency);
+    nextCell.text(moment(nextTrain).format("HH:mm"));
+    timeCell.text(tMinutesTillTrain + " minutes");
+    row.append(nameCell, destCell, freqCell, nextCell, timeCell);
+    $('.train-schedule').append(row);
 });
 
     // //insert into the train schedule table
@@ -49,7 +79,7 @@ $('#submit').on('click', function () {
     // var destCell = $('<td>');
     // var freqCell = $('<td>');
     // var timeCell = $('<td>');
-    // // var nextCell = $('<td>');
+    // var nextCell = $('<td>');
     // nameCell.text(trainName);
     // destCell.text(destination);
     // freqCell.text(frequency);
