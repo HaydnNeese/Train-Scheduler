@@ -41,7 +41,7 @@ $(document).on('click', '#submit', function () {
     $('#frequency-input').val('');
 });
 
-database.ref().orderByChild("dateAdded").limitToLast(1).on("child_added", function (snapshot) {
+database.ref().orderByChild("dateAdded").limitToLast(10).on("child_added", function (snapshot) {
     console.log(snapshot);
     //time calculations
     var tFrequency = snapshot.val().frequency;
